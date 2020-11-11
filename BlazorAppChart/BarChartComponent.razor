@@ -1,0 +1,79 @@
+﻿<style>
+    div {
+        transition: all 1s linear;
+    }
+
+    .legend {
+        display: flex !important;
+        width: 100%;
+        height: 10px;
+    }
+
+        .legend > section {
+            width: 10%;
+            height: 15px;
+            border-right: 3px solid black;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+    section span {
+        margin-right: 3px;
+    }
+</style>
+
+<div class="alert alert-dark col-12">
+    <div class="alert alert-primary mb-4 border-dark">
+        <div class="row">
+            <h1 class="mb-0">@Title</h1>
+            <select class="form-control col-4 ml-3 border-dark" @bind="selectedYear" @bind:event="oninput">
+                @foreach (var item in Data.Keys.Reverse())
+                {
+                    <option>@item</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div>
+        @foreach (var item in Data.Where(s => s.Key == selectedYear)
+    .SelectMany(s => s.Value))
+        {
+            <div class="alert alert-primary p-1 border-dark" style="width: @(item.Item2)%;">
+                @($"{item.Item1} {item.Item2}")
+            </div>
+        }
+        <div class="legend">
+            @for (int i = 1; i < 10; i++)
+            {
+                <section>
+                    <span>
+                        @(i * 10)%
+                    </span>
+                </section>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public Dictionary<int, IEnumerable<(string, int)>> Data { get; set; }
+
+    private int _selectedYear;
+    public int selectedYear
+    {
+        get
+        {
+            if (_selectedYear == 0)
+                return Data.Keys.Last();
+            return _selectedYear;
+        }
+        set { _selectedYear = value; }
+    }
+
+}

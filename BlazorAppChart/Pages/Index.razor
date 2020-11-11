@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<BarChartComponent Data="Data" Title="@("Data is Free")" />
+
+@code{
+    Dictionary<int, IEnumerable<(string, int)>> Data;
+    protected override void OnInitialized()
+    {
+        Data = new Dictionary<int, IEnumerable<(string, int)>>
+        {
+            [2017] = new List<(string, int)>
+        {
+                ("Blue", 87),
+                ("Green", 77),
+                ("Black", 57),
+            },
+            [2018] = new List<(string, int)>
+        {
+                ("BLue", 77),
+                ("Green", 56),
+                ("Black", 88),
+            },
+            [2019] = new List<(string, int)>
+{
+                ("BLue", 27),
+                ("Green", 17),
+                ("Black", 07),
+            },
+            [2020] = new List<(string, int)>
+{
+                ("BLue", 29),
+                ("Green", 11),
+                ("Black", 13),
+            },
+            [2021] = new List<(string, int)>
+{
+                ("BLue", 23),
+                ("Green", 18),
+                ("Black", 24),
+            },
+        };
+    }
+
+}
